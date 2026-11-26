@@ -60,7 +60,7 @@ The reference environment uses CUDA 12.1 builds (`torch==2.5.1+cu121`, `torchvis
 
 All inputs are `1 × 64 × 64` grayscale images. Datasets are not redistributed here.
 
-- **Curated Chest X-ray** — four classes (`COVID-19`, `Normal`, `Pneumonia-Bacterial`, `Pneumonia-Viral`). Place the class folders under `data/Curated X-Ray Dataset/` and export a split audit with:
+- **Curated Chest X-ray** — from the Kaggle [Curated Chest X-Ray Image Dataset for COVID-19](https://www.kaggle.com/datasets/unaissait/curated-chest-xray-image-dataset-for-covid19): 9,208 images over four classes (`COVID-19` 1,281, `Normal` 3,270, `Pneumonia-Bacterial` 3,001, `Pneumonia-Viral` 1,656). Place the class folders under `data/Curated X-Ray Dataset/` and export a split audit with:
 
   ```bash
   python curated_chestxray_data.py --data-root ./data --split-seed 1
@@ -70,7 +70,7 @@ All inputs are `1 × 64 × 64` grayscale images. Datasets are not redistributed 
 - **Fashion-MNIST** — `data/Fashion-MNIST/`
 - **FaceScrub** — `data/facescrub/`
 
-Victim and auxiliary (attacker) pools are disjoint. Note that the Chest X-ray source data carries no patient identifiers, so the partition is image-level, not patient-level.
+Victim and auxiliary (attacker) pools are disjoint and equally sized: the 9,208 Chest X-ray images are stratified into 4,604 victim and 4,604 attacker images, and each pool is split 80/10/10 into train/val/test (3,683 / 461 / 460). The two pools are drawn with the same class proportions, so no class is missing from any split. Note that the Chest X-ray source data carries no patient identifiers, so the partition is image-level, not patient-level.
 
 ## Training
 
